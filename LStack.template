@@ -1,0 +1,60 @@
+//Jacob Hewitt - Computer Science - 3218832
+
+// this constructor initializes the LinkedList object.
+template <typename Data>
+LStack<Data>::LStack(){
+	list = new LinkedList<Data>();
+}
+
+// this constructor takes a pointer to another LStack object. It loops through the LStack LinkedList and adds the value of each Node
+// as a new Node into its own LinkedList object.
+template <typename Data>
+LStack<Data>::LStack(LStack *copySource){
+	list = new LinkedList<Data>(); // Initialize the LinkedList object.
+	int length = copySource->list->length(); // get the length of the LinkedList object in the LStack object passed as a parameter.
+	if(!length == 0){ // check that the LStack passed in is not empty.
+		for(int x = 0; x < length; x++){ // Loop through each node in the LinkedList passed as a parameter.
+		
+			// get the Data stored in the current Node and add it as a new Node in 'list'
+			list->addToTail(copySource->list->get(x));
+		}
+	}
+}
+
+// this is the de-constructor. It deletes the LinkedList which it has a pointer too.
+template <typename Data>
+LStack<Data>::~LStack(){
+	delete list;
+}
+
+// this function adds a new Node to the head of the LinkedList. 'input' contains the data node will store.
+template <typename Data>
+void LStack<Data>::push(Data input){
+	list->addToHead(input);
+}
+
+// this function deletes the Node at the top of the LinkedList and returns the data it was storing.
+template <typename Data>
+Data LStack<Data>::pop(){
+	Data toReturn = list->removeFromHead(); // remove head node and get the data it was storing.
+	return toReturn;
+}
+
+// this function returns the data being stored in the head Node of the Linked List.
+template <typename Data>
+Data LStack<Data>::top() const{
+	return list->returnHead();
+}
+
+// this boolean function checks if the LinkedList is empty.
+template <typename Data>
+bool LStack<Data>::empty() const{
+	return list->empty();
+}
+
+// this function returns the length of the LinkedList (number of nodes)
+template <typename Data>
+size_t LStack<Data>::length() const{
+	return list->length();
+}
+
